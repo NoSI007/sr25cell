@@ -1,0 +1,85 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SR25Ce" x:Class="SR25Ce.inFood"
+        Title="inFood" Height="auto" Width="auto" WindowStyle="ThreeDBorderWindow" SizeToContent="WidthAndHeight" >
+    <Window.Resources>
+        <local:Sr25DataSet x:Key="sr25DataSet"/>
+        <CollectionViewSource x:Key="listNutsViewSource" Source="{Binding ListNuts, Source={StaticResource sr25DataSet}}"/>
+        <CollectionViewSource x:Key="fOOD_DESViewSource" Source="{Binding FOOD_DES, Source={StaticResource sr25DataSet}}"/>
+        <CollectionViewSource x:Key="ndataViewSource" Source="{Binding ndata, Source={StaticResource sr25DataSet}}"/>
+        <!--<Style x:Key="GVcolumn" TargetType="DataGridTextColumn" >
+            <Setter Property="" Value="Right"/>
+        </Style>-->
+        <Style x:Key="RightAlign" TargetType="{x:Type TextBlock}" >
+            <Setter Property="TextAlignment"  Value="Right"/>
+            <!--<Setter Property="Foreground" Value="Blue"/>-->
+            <!--<Setter Property="Background" Value="LightGray"/>-->
+        </Style>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource listNutsViewSource}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="76"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border  Grid.Row="0"  Style="{StaticResource ThickBorder}">
+            <Label Content="Nutrient Found" HorizontalContentAlignment="Center" Width="120"/>
+        </Border >
+
+        <Border  Grid.Row="1"  Style="{StaticResource MediumBorder}"  >
+            <Label  Content="In" HorizontalContentAlignment="Center" Width="160" />
+        </Border>
+        <Border Grid.Row="2"   Style="{StaticResource ThinBorder}" >
+            <TextBlock Name="Cfood" TextAlignment="Center" FontSize="16" TextWrapping="WrapWithOverflow"  Width="360" FontWeight="Bold"/>
+        </Border>
+
+
+        <Border Grid.Row="3"  Style="{StaticResource ThickBorder}">
+            <DataGrid x:Name="NutV" GridLinesVisibility="Horizontal" AutoGenerateColumns="False" Width="368" Height="320"  ItemsSource="{Binding}" Margin="1"   IsReadOnly="True"  >
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="c0" Header="Values" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource RoundBorder}">
+                                    <Label Content="{Binding Value}" Style="{StaticResource SimpleLabel}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn x:Name="c1"  Header="Units" TextBlock.TextAlignment="Center" TextBlock.FontWeight="Bold"  Width="40">
+
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource RoundBorder}">
+                                    <Label FontWeight="Bold" Content="{Binding Unit}" Style="{StaticResource SimpleLabel}" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn x:Name="c2"   Header="Nutrints" Width="220" >
+
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource RoundBorder}">
+                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Food}" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Border>
+
+
+
+    </Grid>
+</Window>
